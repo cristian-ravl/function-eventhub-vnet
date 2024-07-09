@@ -12,8 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'cristiantest1'
   location: 'eastus'
-  templateFile: './main.bicep'
-  csmParametersFile: './main.bicepparam'
+  templateFile: './avisio.bicep'
 
 pool:
   vmImage: $(vmImageName)
@@ -29,6 +28,5 @@ steps:
     location: '$(location)'
     templateLocation: 'Linked artifact'
     csmFile: '$(templateFile)'
-    csmParametersFile: '$(csmParametersFile)'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
