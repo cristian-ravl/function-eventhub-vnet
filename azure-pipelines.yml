@@ -1,14 +1,34 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+trigger:
+- main
 
+name: Deploy Bicep files
+
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'RavlSandbox'
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  resourceGroupName: 'cristiantest1'
+  location: 'eastus'
+  templateFile: './infra/main.bicep'
+  csmParametersFile: './infra/main.bicepparam'
+
+pool:
+  vmImage: $(vmImageName)
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'RavlSandbox'
+    subscriptionId: '8fea7198-f8f8-4817-9b2d-14fec431c99b'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(resourceGroupName)'
+    location: '$(location)'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(templateFile)'
+    csmParametersFile: '$(csmParametersFile)'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
