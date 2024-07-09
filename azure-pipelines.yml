@@ -12,8 +12,8 @@ variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'cristiantest1'
   location: 'eastus'
-  templateFile: './infra/main.bicep'
-  csmParametersFile: './infra/main.bicepparam'
+  templateFile: './main.bicep'
+  csmParametersFile: './main.bicepparam'
 
 pool:
   vmImage: $(vmImageName)
