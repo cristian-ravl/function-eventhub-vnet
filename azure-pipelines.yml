@@ -12,7 +12,7 @@ variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'cristiantest1'
   location: 'eastus'
-  templateFile: './avisio.bicep'
+  templateFile: './main.bicep'
 
 pool:
   vmImage: $(vmImageName)
